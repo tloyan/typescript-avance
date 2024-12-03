@@ -4,34 +4,44 @@
 
 // ❌ NE PAS MODIFIER
 // Utilitaire ne faisant pas partie de l'exercice
-import displayText, { App, init } from "../lib/exerciseHelper"; 
+import displayText, { App, init } from "../lib/exerciseHelper"
 const exercice = () => {
-init()
+  init()
 
-// ✔️ Début de l'exercice
-
-// 🐶 Change le type 'any' de la fonction 'printBirthDay' pour accepter des 'string' ou des 'Date'
-// et specifie 'string' comme type de retour de la fonction
-
-// 🐶 ajoute 2 overloads
-// - inputDate de type Date
-// - inputDate de type string
-function printBirthDay(inputDate: any): any {
-  // 🐶 Si 'inputDate' est de type 'Date'
-  // retourne directement 'inputDate.toLocaleDateString()'
+  // ✔️ Début de l'exercice
+  type InputDate = string | number | Date
+  // ce qui donne
+  function printBirthDay(year: number, month: number, day: number): string
+  function printBirthDay(year: number, month: number): string
+  function printBirthDay(year: number): string
+  function printBirthDay(inputDate: Date): Date
+  function printBirthDay(inputDate: string): string
+  function printBirthDay(
+    inputDate: InputDate,
+    m?: number,
+    d?: number
+  ): string | Date {
+    if (inputDate instanceof Date) {
+      return inputDate
+    } else if (typeof inputDate === "string") {
+      return new Date(inputDate).toLocaleDateString()
+    } else if (d !== undefined && m !== undefined) {
+      return new Date(inputDate, m, d).toLocaleDateString()
+    } else if (m !== undefined) {
+      return new Date(inputDate, m, 1).toLocaleDateString()
+    } else if (typeof inputDate === "number") {
+      return new Date(inputDate, 0, 1).toLocaleDateString()
+    } else {
+      return "Non définie"
+    }
+  }
+  // ⛏️ Décommente le code ci-dessous pour afficher les dates
   //
-  // 🐶 Si 'inputDate' est de type 'string'
-  // retourne new Date(inputDate).toLocaleDateString()
-  //
-  // sinon retourne 'Non défini'
-}
-// ⛏️ Décommente le code ci-dessous pour afficher les dates
-//
-// displayText(`${printBirthDay('October 13, 2014')}`)
-// displayText(`${printBirthDay(new Date(2014, 9, 13))}`)
+  displayText(`${printBirthDay("October 13, 2014")}`)
+  displayText(`${printBirthDay(new Date(2014, 9, 13)).toLocaleDateString()}`)
 
-/*eslint
+  /*eslint
   @typescript-eslint/no-unused-vars: "off"
 */
-};
-export default () => <App exercice={exercice} />;
+}
+export default () => <App exercice={exercice} />

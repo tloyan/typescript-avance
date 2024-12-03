@@ -4,48 +4,85 @@
 
 // ❌ NE PAS MODIFIER
 // Utilitaire ne faisant pas partie de l'exercice
-import displayText, { App, init } from "../lib/exerciseHelper"; 
+import displayText, { App, init } from "../lib/exerciseHelper"
 const exercice = () => {
-init()
+  init()
 
-// ✔️ Début de l'exercice
-type JavaDev = {
-  langage: 'JAVA'
-  framework: string[]
-  javaTools: string
-}
+  // ✔️ Début de l'exercice
+  type JavaDev = {
+    langage: "JAVA"
+    framework: string[]
+    javaTools: string
+  }
 
-type JSDev = {
-  langage: 'JAVASCRIPT'
-  framework: string[]
-  jsTools: string
-}
+  type JSDev = {
+    langage: "JAVASCRIPT"
+    framework: string[]
+    jsTools: string
+  }
 
-type PHPDev = {
-  langage: 'PHP'
-  framework: string[]
-  phpTools: string
-}
-// 🐶 créé le type 'Developper' qui est l'union des 3 types de dev ci-dessus
+  type PHPDev = {
+    langage: "PHP"
+    framework: string[]
+    phpTools: string
+  }
 
-// 🐶 change 'any'
-function helloDeveloppeur(dev: any) {
-  // 🐶 identifie (discrimine) le bon type de Developper en te basant sur 'langage'
-  // returne la bonne chaine de caractère en fonction du langage
-  // Hello developpeur Java
-  // Hello developpeur JavaScript
-  // Hello developpeur PHP
-}
+  type BlockChainDev = {
+    langage: string
+    framework: string[]
+    cryptoBlockChain: string
+  }
+  type Developper = JavaDev | JSDev | PHPDev | BlockChainDev
 
-// 🐶 créé 3 devs (devJava, devJs, devPHP)
+  function helloDeveloppeur(dev: Developper) {
+    if ("cryptoBlockChain" in dev)
+      return `Hello developpeur Blockchain ${dev.cryptoBlockChain}`
+    switch (dev.langage) {
+      case "JAVA":
+        return "Hello developpeur Java"
+      case "JAVASCRIPT":
+        return "Hello developpeur JavaScript"
+      case "PHP":
+        return "Hello developpeur PHP"
+      default:
+        throw new Error("Unexpected value. Should have been never.")
+    }
+  }
 
-// ⛏️ décommente
-// displayText(`${helloDeveloppeur(devJava)}`)
-// displayText(`${helloDeveloppeur(devJs)}`)
-// displayText(`${helloDeveloppeur(devPHP)}`)
+  // 🐶 créé 3 devs (devJava, devJs, devPHP)
+  const devJava: JavaDev = {
+    langage: "JAVA",
+    framework: ["spring"],
+    javaTools: "spring",
+  }
 
-/*eslint
+  const devJs: JSDev = {
+    langage: "JAVASCRIPT",
+    framework: ["React"],
+    jsTools: "webpack",
+  }
+
+  const devPhp: PHPDev = {
+    langage: "PHP",
+    framework: ["Laravel"],
+    phpTools: "none",
+  }
+
+  const ethDev: BlockChainDev = {
+    langage: "JAVASCRIPT",
+    framework: ["React", "Solidity"],
+    cryptoBlockChain: "ETH",
+  }
+  displayText(`${helloDeveloppeur(devJava)}`) // Hello normal developpeur
+  displayText(`${helloDeveloppeur(ethDev)}`)
+
+  // ⛏️ décommente
+  displayText(`${helloDeveloppeur(devJava)}`)
+  displayText(`${helloDeveloppeur(devJs)}`)
+  displayText(`${helloDeveloppeur(devPhp)}`)
+
+  /*eslint
   @typescript-eslint/no-unused-vars: "off"
 */
-};
-export default () => <App exercice={exercice} />;
+}
+export default () => <App exercice={exercice} />

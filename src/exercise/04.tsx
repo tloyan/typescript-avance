@@ -4,27 +4,40 @@
 
 // ❌ NE PAS MODIFIER
 // Utilitaire ne faisant pas partie de l'exercice
-import displayText, { App, init } from "../lib/exerciseHelper"; 
+import displayText, { App, init } from "../lib/exerciseHelper"
 const exercice = () => {
-init()
+  init()
 
-// ✔️ Début de l'exercice
+  type Player = {
+    id: string
+    stats: string
+  }
 
-// 🐶 Créé l'interface 'Club' permettant d'avoir un objet dont les propiétés ne sont pas connus à l'avance
-// nous savons seulement que ces propriétés contiendront des 'object'
+  interface Club {
+    [key: string]: Player
+  }
 
-// 🐶 Créé le club 'machesterUnited' avec 'cristianoRonaldo' et 'paulPogba'
-// 🐶 Créé le club 'psg' avec 'messi' et 'mbappe'
+  // 🐶 Créé le club 'machesterUnited' avec 'cristianoRonaldo' et 'paulPogba'
+  // 🐶 Créé le club 'psg' avec 'messi' et 'mbappe'
+  const manchesterUnited = {
+    cristianoRonaldo: { id: "342", stats: "50buts" },
+    paulPogba: { id: "343", stats: "27buts" },
+  }
 
-// ⛏️ Décommente le code ci-dessous pour afficher le nombre de joueur dans l'équipe
-//
-// displayText(
-//   `Machester United nb player : ${Object.keys(machesterUnited).length}`,
-// )
-// displayText(`psg nb player : ${Object.keys(psg).length}`)
+  const psg = {
+    messi: { id: "344", stats: "10buts" },
+    mbappe: { id: "345", stats: "13buts" },
+  }
 
-/*eslint
+  // ⛏️ Décommente le code ci-dessous pour afficher le nombre de joueur dans l'équipe
+  //
+  displayText(
+    `Machester United nb player : ${Object.keys(manchesterUnited).length}`
+  )
+  displayText(`psg nb player : ${Object.keys(psg).length}`)
+
+  /*eslint
   @typescript-eslint/no-unused-vars: "off"
 */
-};
-export default () => <App exercice={exercice} />;
+}
+export default () => <App exercice={exercice} />
