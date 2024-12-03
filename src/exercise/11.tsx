@@ -4,47 +4,47 @@
 
 // ❌ NE PAS MODIFIER
 // Utilitaire ne faisant pas partie de l'exercice
-import displayText, { App, init } from "../lib/exerciseHelper"; 
+import displayText, { App, init } from "../lib/exerciseHelper"
 const exercice = () => {
-init()
+  init()
 
-// ✔️ Début de l'exercice
+  // ✔️ Début de l'exercice
 
-// 🐶 change "code" en private dans un premier temps et regarde le problème lié a getCode()
-// adapte dans un second temps
-class User {
-  public name: string
-  public code: number
+  // 🐶 change "code" en private dans un premier temps et regarde le problème lié a getCode()
+  // adapte dans un second temps
+  class User {
+    public name: string
+    protected code: number
 
-  constructor(name: string, code: number) {
-    this.name = name
-    this.code = code
-  }
-}
-
-class GuestUser extends User {
-  private department: string
-
-  constructor(name: string, code: number, department: string) {
-    super(name, code)
-    this.department = department
-  }
-  getCode() {
-    if (this.check()) {
-      return this.code
+    constructor(name: string, code: number) {
+      this.name = name
+      this.code = code
     }
   }
-  check() {
-    return true
+
+  class GuestUser extends User {
+    private department: string
+
+    constructor(name: string, code: number, department: string) {
+      super(name, code)
+      this.department = department
+    }
+    getCode() {
+      if (this.check()) {
+        return this.code
+      }
+    }
+    check() {
+      return true
+    }
   }
-}
 
-let user = new GuestUser('John Smith', 123, 'Sales')
-// 🐶 utilise 'getCode'
-displayText(`Le code user : ${user.code}`)
+  let user = new GuestUser("John Smith", 123, "Sales")
+  // 🐶 utilise 'getCode'
+  displayText(`Le code user : ${user.getCode()}`)
 
-/*eslint
+  /*eslint
   @typescript-eslint/no-unused-vars: "off"
 */
-};
-export default () => <App exercice={exercice} />;
+}
+export default () => <App exercice={exercice} />
